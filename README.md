@@ -1,28 +1,10 @@
 <p align="center">
-      <img src="Project Logo Url" width="726">
-</p>
-
-<p align="center">
-   <img src="" alt="Unity Version">
-   <img src="" alt="Game Version">
-   <img src="" alt="License">
+      Freelance Exchange Web Application
 </p>
 
 ## About
 
-About Text Here
+Данный проект был разработан в рамках дипломной работы на тему «Разработка веб-приложения для биржи фриланса». MVC проект реализован на фреймворке Spring со встроенным сервером Apache Tomcat, в роли сервера для удалённого подключения и администрирования базы данных выступил Microsoft SQL Server.
 
-## Documentation
-
-Documentation Here
-
-## Distribute
-
-- [Service Name](Page Link)
-
-
-## Developers
-
-- [Delevoper Name](GitHub Profile Link)
-
-## License
+Среди функционала веб-приложения присутствуют возможности авторизации и регистрации с разделением прав доступа пользователя к конкретным функциям сайта. 
+Для пользователей предоставлены возможности взаимодействия с вакансиями - от их создания до выбора исполнителя с последующим их завершением.
