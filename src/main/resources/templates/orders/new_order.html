@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление нового заказа</title>
+    <link rel="stylesheet" type="text/css" href="../../static/style/style.css" th:href="@{/style/style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../static/scripts/script.js" th:src="@{/scripts/script.js}"></script>
+</head>
+<body>
+    <header>
+        <div class="main_logo">
+            <div class="main_logo_container">
+                <a href="../"><img src="../../static/photos/main_logo.png" th:src="@{/photos/main_logo.png}" alt="Логотип"></a>
+                <p>Работаем 24/7</p>
+            </div>
+        </div>
+        <div class="nav_bar">
+            <div class="nav_bar_container">
+                <nav>
+                    <ul>
+                        <li><a href="../orders" class="visited">Заказы</a></li>
+                        <li><a href="../freelancers">Специалисты</a></li>
+                        <li><a href="../services">Услуги</a></li>
+                        <li><a href="../help">Помощь</a></li>
+                    </ul>
+                </nav>
+                <div class="auth" sec:authorize="isAnonymous()">
+                    <ul>
+                        <li><a href="../login">Вход</a></li>
+                        <li><a href="../registration">Регистрация</a></li>
+                    </ul>
+                </div>
+                <div class="user_block" sec:authorize="isAuthenticated()">
+                    <p th:if="${user.getAccess() == 2 || user.getAccess() == 3}" th:text="${user.getCash() + ' ₽'}"></p>
+                    <div class="nav_user">
+                        <p th:if="user != null" th:text="${user.getFirstName() + ' ' + user.getSecondName()}"></p>
+                        <ul>
+                            <li><a href="../login" class="nav_user_el">Профиль</a></li>
+                            <li><a href="../login" class="nav_user_el">Сообщения</a></li>
+                            <li><a href="../login" class="nav_user_el">Заказы</a></li>
+                            <form th:action="@{/logout}" method="post" class="nav_user_el">
+                                <input type="submit" value="Выход" class="sign_out_button"/>
+                            </form>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="add_order_container">
+            <h3>Добавление нового заказа</h3>
+            <form th:method="POST" th:action="@{/orders/new_order}" th:object="${order}" name="add_order_form">
+                <div>
+                    <label for="title">Название вакансии</label>
+                    <input id="title" type="text" th:field="*{title}" required>
+                    <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">format Error</div>
+                </div>
+                <div>
+                    <label for="description">Описание вакансии</label>
+                    <textarea id="description" th:field="*{description}" required></textarea>
+                    <div class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">format Error</div>
+                </div>
+                <div>
+                    <label for="salary">Стоимость работы</label>
+                    <input id="salary" type="number" th:min="1" th:field="*{salary}" required>
+                    <div class="error" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}">format Error</div>
+                    <div class="error" th:if="${cashError}">Недостаточный баланс.</div>
+                </div>
+                <div class="add_order_category">
+                    <div>
+                        <label for="category">Вид деятельности</label>
+                        <select id="category" th:field="*{category}" name="category_select" required>
+                            <option th:value="0" hidden disabled>Выберите категорию</option>
+                            <option th:each="category:${categories}" th:value="${category.getId()}" th:text="${category.getTitle()}"></option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="service">Вид услуги</label>
+                        <select id="service" th:field="*{service}" required></select>
+                    </div>
+                </div>
+                <div class="add_order_deadline">
+                    <label for="deadline">Крайний срок выполнения работы</label>
+                    <input id="deadline" type="date" th:field="*{deadline}" th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" required>
+                </div>
+                <div>
+                    <label for="attachments">Вложения</label>
+                    <input id="attachments" type="file" multiple accept="image/*" th:field="*{attachments}">
+                </div>
+                <div class="add_order_submit_button">
+                    <input type="submit" value="Создать заказ">
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <ul>
+            <li>© Cent, 2022</li>
+            <li><a href="#">О проекте</a></li>
+            <li><a href="#">Правила</a></li>
+            <li><a href="#">Безопасность</a></li>
+            <li><a href="#">Помощь</a></li>
+        </ul>
+    </footer>
+</body>
+</html>

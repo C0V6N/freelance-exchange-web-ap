@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Заказы</title>
+    <link rel="stylesheet" type="text/css" href="../../static/style/style.css" th:href="@{/style/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../static/scripts/script.js" th:src="@{/scripts/search.js}"></script>
+</head>
+<body>
+    <header>
+        <div class="main_logo">
+            <div class="main_logo_container">
+                <a href="../"><img src="../../static/photos/main_logo.png" th:src="@{/photos/main_logo.png}" alt="Логотип"></a>
+                <p>Работаем 24/7</p>
+            </div>
+        </div>
+        <div class="nav_bar">
+            <div class="nav_bar_container">
+                <nav>
+                    <ul>
+                        <li><a href="../orders" class="visited">Заказы</a></li>
+                        <li><a href="../freelancers">Специалисты</a></li>
+                        <li><a href="../services">Услуги</a></li>
+                        <li><a href="../help">Помощь</a></li>
+                    </ul>
+                </nav>
+                <div class="auth" sec:authorize="isAnonymous()">
+                    <ul>
+                        <li><a href="../login">Вход</a></li>
+                        <li><a href="../registration">Регистрация</a></li>
+                    </ul>
+                </div>
+                <div class="user_block" sec:authorize="isAuthenticated()">
+                    <p th:if="${user.getAccess() == 2 || user.getAccess() == 3}" th:text="${user.getCash() + ' ₽'}"></p>
+                    <div class="nav_user">
+                        <p th:if="user != null" th:text="${user.getFirstName() + ' ' + user.getSecondName()}"></p>
+                        <ul>
+                            <li><a href="../login" class="nav_user_el">Профиль</a></li>
+                            <li><a href="../login" class="nav_user_el">Сообщения</a></li>
+                            <li><a href="../login" class="nav_user_el">Заказы</a></li>
+                            <form th:action="@{/logout}" method="post" class="nav_user_el">
+                                <input type="submit" value="Выход" class="sign_out_button"/>
+                            </form>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="orders_search">
+            <div class="orders_search_container">
+                <div class="action_orders_block">
+                    <form>
+                        <input type="text" id="search" placeholder="Какие заказы Вы ищете?"><button class="filters_button"><i class="fa fa-sliders"></i> Фильтры</button>
+                    </form>
+                    <a href="orders/new_order" sec:authorize="hasRole('ROLE_EMPLOYER')" class="add_order_button">Добавить заказ</a>
+                </div>
+                <p class="results_count">Результатов: <span class="orders_count" th:text="${countOrders}"></span></p>
+            </div>
+        </div>
+        <div class="orders_list">
+            <div class="order" th:each="order:${orders}">
+                <div class="order_description">
+                    <a th:href="@{orders/order-{id}(id=${order.getId()})}"><h3 th:text="${order.getTitle()}"></h3></a>
+                    <p class="order_short_description" th:text="${order.getDescription()}"></p>
+                    <p th:text="${order.getCategoryTitle() + ' > ' + order.getServiceTitle()}"></p>
+                </div>
+                <div class="order_action" th:switch="${userAccess}">
+                    <p class="order_action_time" th:text="${'До ' + order.getDeadline()}"></p>
+                    <div class="order_action_price">
+                        <p th:text="${floatNum.format(order.getSalary()) + ' ₽'}"></p>
+                        <p>за заказ</p>
+                    </div>
+                    <i class="fa fa-reply">
+                        <p class="order_action_responses" th:text="${order.getResponses()}"></p>
+                    </i>
+                    <a th:case="1" th:href="@{orders/order-{id}(id=${order.getId()})}" class="order_action_button">Проверить</a>
+                    <a th:case="2" th:href="@{orders/order-{id}(id=${order.getId()})}" class="order_action_button">Посмотреть</a>
+                    <a th:case="3" th:href="@{orders/order-{id}(id=${order.getId()})}" class="order_action_button">Откликнуться</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <ul>
+            <li>© Cent, 2022</li>
+            <li><a href="#">О проекте</a></li>
+            <li><a href="#">Правила</a></li>
+            <li><a href="#">Безопасность</a></li>
+            <li><a href="#">Помощь</a></li>
+        </ul>
+    </footer>
+</body>
+</html>

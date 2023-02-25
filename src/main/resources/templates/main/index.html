@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Домашняя страница</title>
+    <link rel="stylesheet" type="text/css" href="../../static/style/style.css" th:href="@{/style/style.css}">
+</head>
+<body>
+    <header>
+        <div class="main_logo">
+            <div class="main_logo_container">
+                <a href="../"><img src="../../static/photos/main_logo.png" th:src="@{/photos/main_logo.png}" alt="Логотип"></a>
+                <p>Работаем 24/7</p>
+            </div>
+        </div>
+        <div class="nav_bar">
+            <div class="nav_bar_container">
+                <nav>
+                    <ul>
+                        <li><a href="../orders">Заказы</a></li>
+                        <li><a href="../freelancers">Специалисты</a></li>
+                        <li><a href="../services">Услуги</a></li>
+                        <li><a href="../help">Помощь</a></li>
+                    </ul>
+                </nav>
+                <div class="auth" sec:authorize="isAnonymous()">
+                    <ul>
+                        <li><a href="../login">Вход</a></li>
+                        <li><a href="../registration">Регистрация</a></li>
+                    </ul>
+                </div>
+                <div class="user_block" sec:authorize="isAuthenticated()">
+                    <p th:if="${user.getAccess() == 2 || user.getAccess() == 3}" th:text="${user.getCash() + ' ₽'}"></p>
+                    <div class="nav_user">
+                        <p th:if="user != null" th:text="${user.getFirstName() + ' ' + user.getSecondName()}"></p>
+                        <ul>
+                            <li><a href="../login" class="nav_user_el">Профиль</a></li>
+                            <li><a href="../login" class="nav_user_el">Сообщения</a></li>
+                            <li><a href="../login" class="nav_user_el">Заказы</a></li>
+                            <li><a href="../login" class="nav_user_el">Пополнить счёт</a></li>
+                            <form th:action="@{/logout}" method="post" class="nav_user_el">
+                                <input type="submit" value="Выход" class="sign_out_button"/>
+                            </form>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="main_action">
+            <h1>Миллион исполнителей <br> готовы помочь вам</h1>
+            <a href="#" class="main_action_button">Разместить заказ</a>
+            <p>Нужна работа? <a href="#">Зарегистрируйтесь фрилансером</a></p>
+        </div>
+        <div class="main_vacancies">
+            <a href="#" class="vacancy_link">
+                <div class="vacancy">
+                    <h3>Дизайн</h3>
+                    <p class="vacancy_description">Сайты, Лендинги, Логотипы и другое</p>
+                    <p class="vacancy_count">Более <span>20</span> вакансий уже сейчас</p>
+                </div>
+            </a>
+            <a href="#" class="vacancy_link">
+                <div class="vacancy">
+                    <h3>Разработка</h3>
+                    <p class="vacancy_description">Сайты «под ключ», Бэкенд, Фронтенд и другое</p>
+                    <p class="vacancy_count">Более <span>20</span> вакансий уже сейчас</p>
+                </div>
+            </a>
+            <a href="#" class="vacancy_link">
+                <div class="vacancy">
+                    <h3>Тестирование</h3>
+                    <p class="vacancy_description">Сайты, Мобайл, Софт и другое</p>
+                    <p class="vacancy_count">Более <span>20</span> вакансий уже сейчас</p>
+                </div>
+            </a>
+            <a href="#" class="vacancy_link">
+                <div class="vacancy">
+                    <h3>Контент</h3>
+                    <p class="vacancy_description">Копирайтинг, Рерайтинг, Расшифровка аудио и видео и другое</p>
+                    <p class="vacancy_count">Более <span>20</span> вакансий уже сейчас</p>
+                </div>
+            </a>
+            <a href="#" class="vacancy_link">
+                <div class="vacancy">
+                    <h3>Маркетинг</h3>
+                    <p class="vacancy_description">SMM, SEO, Контекстная реклама и другое</p>
+                    <p class="vacancy_count">Более <span>20</span> вакансий уже сейчас</p>
+                </div>
+            </a>
+            <a href="#" class="vacancy_link">
+                <div class="vacancy">
+                    <h3>Администрирование</h3>
+                    <p class="vacancy_description">Серверы, Компьютерные сети, Базы данных и другое</p>
+                    <p class="vacancy_count">Более <span>20</span> вакансий уже сейчас</p>
+                </div>
+            </a>
+        </div>
+    </main>
+    <footer>
+        <ul>
+            <li>© Cent, 2022</li>
+            <li><a href="#">О проекте</a></li>
+            <li><a href="#">Правила</a></li>
+            <li><a href="#">Безопасность</a></li>
+            <li><a href="#">Помощь</a></li>
+        </ul>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,793 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'PT Sans', sans-serif;
+    background-color: #eeeeee;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+/* Стили для логотипа */
+
+.main_logo {
+    width: 100%;
+    height: 60px;
+    background: rgb(21,33,47);
+    background: linear-gradient(90deg, rgba(21,33,47,1) 0%, rgba(55,62,70,1) 50%, rgba(55,62,70,1) 100%);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.main_logo img {
+    height: 50px;
+    margin-top: 5px;
+}
+
+.main_logo_container {
+    width: 55%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main_logo_container p {
+    margin-right: 15px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 14px;
+}
+
+/* Стили для навигации */
+
+.nav_bar {
+    width: 100%;
+    height: 70px;
+    background-color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.nav_bar_container {
+    width: 55%;
+    height: 70px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav_bar ul li {
+    display: inline;
+}
+
+.nav_bar ul li a {
+    text-decoration: none;
+    padding: 27px 0;
+    margin-right: 15px;
+    color: #999999;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.nav_bar ul li a:hover {
+    color: #4f6173;
+}
+
+.visited {
+    color: #4f6173 !important;
+    box-shadow: inset 0 -4px #60bcfa;
+}
+
+/* Стили для главного экрана действия */
+
+.main_action {
+    height: 500px;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    background: url("../photos/main_bg.png");
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+.main_action h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 40pt;
+    color: white;
+    line-height: 70px;
+}
+
+.main_action_button {
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    color: white;
+    width: 200px;
+    padding: 30px 40px;
+    border-radius: 5px;
+    margin: 0 auto;
+    background-color: #4ea828;
+}
+
+.main_action_button:hover {
+    background-color: #7ecd57;
+}
+
+.main_action p {
+    margin-top: -100px;
+    color: white;
+}
+
+.main_action p a {
+    color: white;
+}
+
+/* Стили для плиток вакансий главной страницы */
+
+.main_vacancies {
+    width: 55%;
+    margin: -30px auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.vacancy_link {
+    width: 350px;
+    text-decoration: none;
+    color: black;
+}
+
+.vacancy_link:hover h3 {
+    color: #309f72;
+}
+
+.vacancy {
+    min-height: 180px;
+    border-radius: 15px;
+    border: 1px solid black;
+    background-color: white;
+    padding: 15px 25px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.vacancy_description {
+    min-height: 70px;
+    line-height: 30px;
+}
+
+.vacancy_count, .vacancy_description {
+    font-family: Arial, sans-serif;
+}
+
+.vacancy span {
+    color: #309f72;
+    font-weight: bold;
+
+}
+
+/* Стили для футера */
+
+footer {
+    width: 55%;
+    margin: 50px auto 0 auto;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #d8d8d8;
+}
+
+footer ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+footer ul li a {
+    color: black;
+    text-decoration: none;
+}
+
+/* Стили для строки поиска заказов */
+
+.orders_search {
+    width: 100%;
+    background-color: white;
+    min-height: 100px;
+}
+
+.orders_search_container {
+    width: 55%;
+    min-height: 100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.orders_search form {
+    width: 700px;
+}
+
+.orders_search input {
+    width: 82%;
+    padding: 8px 10px;
+    border-radius: 4px;
+    outline: none;
+    border: 1px solid #d8d8d8;
+}
+
+.filters_button {
+    width: 100px;
+    background-color: white;
+    outline: none;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+    padding: 8px 10px;
+    cursor: pointer;
+    color: #73889f;
+}
+
+.filters_button:hover {
+    color: black;
+}
+
+.results_count {
+    font-size: 10pt;
+}
+
+.action_orders_block {
+    margin-top: 15px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.add_order_button {
+    position: absolute;
+    margin-left: 48%;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+    padding: 7px 25px;
+    font-size: 10pt;
+    background-color: #4ea828;
+    color: white;
+}
+
+/* Стили для плиток заказов */
+
+.orders_list {
+    width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order {
+    width: 660px;
+    min-height: 200px;
+    border-radius: 4px;
+    background-color: white;
+    margin-top: 20px;
+    box-shadow: 0 1px 3px #838383;
+    padding: 25px 20px;
+    display: flex;
+}
+
+.order_description {
+    width: 70%;
+    border-right: 1px solid #d8d8d8;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.order_short_description {
+    margin: 25px 0;
+}
+
+.order_action {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order_action_time {
+    color: #898a8a;
+    font-size: 10pt;
+}
+
+.order_action_price {
+    text-align: center;
+    font-size: 10pt;
+}
+
+.order_action_price p:first-child {
+    font-size: 10pt;
+    color: white;
+    background-color: #60a36d;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.order_action_price p:last-child {
+    color: #60a36d;
+}
+
+.order_action_responses {
+    font-size: 10pt;
+}
+
+.order_action_button {
+    border: 1px solid #d8d8d8;
+    color: #60a36d;
+    padding: 10px 40px;
+}
+
+.order_action_button:hover {
+    background-color: #60a36d;
+    color: white;
+}
+
+/* Стили для страницы регистрации */
+
+.offer_login {
+    width: 450px;
+    background-color: white;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.register_block {
+    width: 450px;
+    background-color: white;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.offer_login a {
+    text-decoration: underline;
+}
+
+.register_block form, .add_order_container form {
+    min-height: 500px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.register_block div, .add_order_container div {
+    display: flex;
+    flex-direction: column;
+}
+
+.register_block div label, .add_order_container div label {
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.register_block input[type="password"], .register_block input[type="email"] {
+    padding: 10px 8px;
+    outline: none;
+}
+
+.register_role {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.register_role label {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.register_role span {
+    border: 1px solid black;
+    padding: 8px 75px;
+}
+
+.register_role input {
+    appearance: none;
+}
+
+.register_role input[type="radio"]:checked+span {
+    background-color: #a0bbf0;
+}
+
+.register_submit_button input {
+    background-color: #4ea828;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    padding: 20px;
+    color: white;
+    font-size: 12pt;
+}
+
+/* Стили для формы авторизации */
+
+.login form {
+    min-height: 200px;
+}
+
+.login div {
+    margin: 10px 0;
+}
+
+.error {
+    color: red;
+}
+
+/* Стили для навигации профиля */
+
+.user_block {
+    display: flex;
+    align-items: center;
+}
+
+.user_block p {
+    margin-right: 7px;
+}
+
+.nav_user {
+    min-width: 100px;
+    cursor: pointer;
+}
+
+.nav_user p {
+    font-weight: bold;
+    padding: 8px 10px;
+    text-align: right;
+}
+
+.nav_user ul {
+    position: absolute;
+    background-color: white;
+    width: 200px;
+}
+
+.nav_user_el {
+    display: none;
+    padding: 8px 10px !important;
+    text-transform: none !important;
+    color: black !important;
+    font-size: 11pt !important;
+    font-weight: normal !important;
+    margin: 0 !important;
+}
+
+.sign_out_button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.nav_user:hover .nav_user_el {
+    display: block;
+}
+
+.nav_user_el:hover {
+    background-color: #e8e8e8;
+}
+
+/* Стили для страницы добавления заказа */
+
+.add_order_container, .current_order_container {
+    width: 35%;
+    margin: 25px auto;
+    background-color: white;
+    padding: 25px;
+}
+
+.add_order_container form {
+    min-height: 700px;
+}
+
+.add_order_container form input[type="text"], .add_order_container form input[type="number"] {
+    padding: 10px 8px;
+    outline: none;
+}
+
+.add_order_category {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row !important;
+}
+
+.add_order_container textarea {
+    height: 200px;
+    resize: none;
+    outline: none;
+    font-size: 10pt;
+    font-family: Arial, sans-serif;
+    padding: 10px 8px;
+}
+
+.add_order_category div {
+    width: 45%;
+}
+
+.add_order_deadline {
+    width: 45%;
+}
+
+.add_order_deadline input {
+    padding: 10px 8px;
+    font-size: 10pt;
+}
+
+.add_order_category select {
+    padding: 10px 8px;
+    outline: none;
+    cursor: pointer;
+}
+
+.add_order_submit_button input {
+    width: 50%;
+    padding: 10px 20px;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid #435e45;
+    margin: 20px auto 0 auto;
+    background-color: #b6eabb;
+    font-size: 11pt;
+    font-family: "PT Sans", sans-serif;
+}
+
+/* Стили для выбранного заказа */
+.current_order_container {
+    width: 53%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.current_order_main {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.current_order_main > div {
+    margin-bottom: 15px;
+}
+
+.current_order_title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.current_order_title h3 {
+    font-size: 16pt;
+}
+
+.current_order_title p {
+    margin-top: 5px;
+    padding: 8px 9px;
+}
+
+.order_category {
+    font-size: 10pt;
+}
+
+.active_order {
+    background-color: #dbf1d5;
+    color: #114700;
+    border: 1px solid #114700;
+    font-size: 7pt;
+    text-transform: uppercase;
+    font-family: Arial, sans-serif;
+}
+
+.moderation_order {
+    background-color: #f1ecd5;
+    color: #473500;
+    border: 1px solid #473500;
+    font-size: 7pt;
+    text-transform: uppercase;
+    font-family: Arial, sans-serif;
+}
+
+.execution_order {
+    background-color: #d5d8f1;
+    color: #000847;
+    border: 1px solid #000847;
+    font-size: 7pt;
+    text-transform: uppercase;
+    font-family: Arial, sans-serif;
+}
+
+.completed_order {
+    background-color: #ededed;
+    color: #606060;
+    border: 1px solid #606060;
+    font-size: 7pt;
+    text-transform: uppercase;
+    font-family: Arial, sans-serif;
+}
+
+.order_employer {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+.order_employer img {
+    margin-right: 10px;
+    width: 30px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.order_response_action {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.order_response_action form input {
+    cursor: pointer;
+    padding: 15px 150px;
+    background-color: #dbf1d5;
+    color: #114700;
+    border: 1px solid #114700;
+    text-transform: uppercase;
+}
+
+.order_response_action a {
+    text-transform: uppercase;
+    font-size: 9pt;
+    margin-top: 10px;
+    color: #717171;
+}
+
+.current_order_info {
+    width: 25%;
+    padding: 15px 25px;
+    box-shadow: 0 3px 5px 0 rgb(209 209 209);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.current_order_info div {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #d8d8d8;
+    padding: 15px 0;
+}
+
+.current_order_info div:first-child {
+    justify-content: center;
+}
+
+.current_order_info div:last-child {
+    border: none;
+}
+
+.current_order_info div p:first-child {
+    color: gray;
+}
+
+/* Стили для откликов */
+
+.responses_container {
+    width: 53%;
+    margin: 25px auto;
+    background-color: white;
+    padding: 25px;
+}
+
+.responses_container h3 {
+    font-size: 16pt;
+    text-align: center;
+}
+
+.responses_block {
+    display: flex;
+    flex-direction: column;
+}
+
+.order_response {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 10px auto;
+}
+
+.order_response img {
+    width: 70px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.response_user {
+    width: 100%;
+    margin-left: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.response {
+    display: flex;
+    align-items: center;
+    width: 70%;
+    margin: 0 auto;
+    padding: 0 15px;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.response:last-child {
+    border: none;
+}
+
+.choose_freelancer_button input {
+    margin-left: 35px;
+    padding: 8px 18px;
+    background-color: #60a36d;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    color: white;
+}
+
+.edit_order_button {
+    display: flex;
+    align-items: center;
+}
+
+.edit_order_button a {
+    font-size: 16pt;
+    margin-right: 10px;
+}
+
+.cancel_order_button {
+    text-align: center;
+}
+
+.cancel_order_button input {
+    padding: 10px 24px;
+    background-color: #ededed;
+    cursor: pointer;
+    border: none;
+    text-transform: uppercase;
+    font-size: 9pt;
+    color: #717171;
+}

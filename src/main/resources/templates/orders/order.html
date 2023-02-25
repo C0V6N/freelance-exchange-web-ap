@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Заказ</title>
+    <link rel="stylesheet" type="text/css" href="../../static/style/style.css" th:href="@{/style/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <header>
+        <div class="main_logo">
+            <div class="main_logo_container">
+                <a href="../"><img src="../../static/photos/main_logo.png" th:src="@{/photos/main_logo.png}" alt="Логотип"></a>
+                <p>Работаем 24/7</p>
+            </div>
+        </div>
+        <div class="nav_bar">
+            <div class="nav_bar_container">
+                <nav>
+                    <ul>
+                        <li><a href="../orders" class="visited">Заказы</a></li>
+                        <li><a href="../freelancers">Специалисты</a></li>
+                        <li><a href="../services">Услуги</a></li>
+                        <li><a href="../help">Помощь</a></li>
+                    </ul>
+                </nav>
+                <div class="auth" sec:authorize="isAnonymous()">
+                    <ul>
+                        <li><a href="../login">Вход</a></li>
+                        <li><a href="../registration">Регистрация</a></li>
+                    </ul>
+                </div>
+                <div class="user_block" sec:authorize="isAuthenticated()">
+                    <p th:if="${user.getAccess() == 2 || user.getAccess() == 3}" th:text="${user.getCash() + ' ₽'}"></p>
+                    <div class="nav_user">
+                        <p th:if="user != null" th:text="${user.getFirstName() + ' ' + user.getSecondName()}"></p>
+                        <ul>
+                            <li><a href="../login" class="nav_user_el">Профиль</a></li>
+                            <li><a href="../login" class="nav_user_el">Сообщения</a></li>
+                            <li><a href="../login" class="nav_user_el">Заказы</a></li>
+                            <form th:action="@{/logout}" method="post" class="nav_user_el">
+                                <input type="submit" value="Выход" class="sign_out_button"/>
+                            </form>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="current_order_container">
+            <div class="current_order_main">
+                <div class="current_order_title">
+                    <div class="edit_order_button">
+                        <a th:href="@{/orders/order-{id}/edit(id=${order.getId()})}" th:if="${order.getStatus() == 2 && isAuthor}"><i class="fa fa-pencil-square-o"></i> </a>
+                        <h3 th:text="${order.getTitle()}"></h3>
+                    </div>
+
+                    <th:block th:switch="${order.getStatus()}">
+                        <p th:case="${1}" class="moderation_order">На модерации</p>
+                        <p th:case="${2}" class="active_order">Активный</p>
+                        <p th:case="${3}" class="execution_order">На выполнении</p>
+                        <p th:case="${4}" class="completed_order">Завершён</p>
+                        <p th:case="${5}" class="completed_order">Отменён</p>
+                    </th:block>
+                </div>
+                <div class="order_category">
+                    <p th:text="${order.getCategoryTitle() + ' > ' + order.getServiceTitle()}"></p>
+                </div>
+                <div>
+                    <p th:text="${order.getDescription()}"></p>
+                </div>
+                <div>
+                    <a th:href="@{/users/user-{id}(id=${order.getEmployer()})}" class="order_employer">
+                        <img th:src="@{/photos/users/{url}(url=${user.getProfilePicture()})}" alt="Фото профиля">
+                        <p th:text="${employer.getFirstName() + ' ' + employer.getSecondName()}"></p>
+                    </a>
+                </div>
+                <div class="order_response_action" th:switch="${userAccess}">
+                    <form th:case="1" th:method="POST" th:action="@{/orders/accept-order-{id}(id=${order.getId()})}">
+                        <input type="submit" value="Одобрить публикацию">
+                    </form>
+                    <form th:case="3" th:method="POST" th:if="${!isResponseLeaved}" th:action="@{/orders/response-{id}(id=${order.getId()})}">
+                        <input type="submit" value="Откликнуться">
+                    </form>
+                </div>
+                <div class="order_response_action" th:if="${order.getStatus() == 3 && isAuthor}">
+                    <form th:method="POST" th:action="@{/orders/complete-order-{id}(id=${order.getId()})}">
+                        <input type="submit" value="Завершить заказ">
+                    </form>
+                    <a href="#">Связаться с модератором</a>
+                </div>
+                <div class="cancel_order_button" th:if="${order.getStatus() == 2 && isAuthor}">
+                    <form th:method="POST" th:action="@{/orders/cancel-order-{id}(id=${order.getId()})}">
+                        <input type="submit" value="Отменить заказ">
+                    </form>
+                </div>
+
+            </div>
+            <div class="current_order_info">
+                <div>
+                    Информация по вакансии
+                </div>
+                <div>
+                    <p>Стоимость:</p>
+                    <p th:text="${floatNum.format(order.getSalary()) + ' ₽'}"></p>
+                </div>
+                <div>
+                    <p>Срок сдачи:</p>
+                    <p th:text="${order.getDeadline()}"></p>
+                </div>
+                <div>
+                    <p>Дата публикации:</p>
+                    <p th:text="${order.getOrderDate()}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="responses_container" th:if="${order.getStatus() == 2}">
+            <h3 th:text="${'Отклики (' + responsesCount + ')'}">Отклики</h3>
+            <div class="responses_block">
+                <div class="response" th:each="response:${responses}">
+                    <a class="order_response" th:href="@{/users/user-{id}(id=${response.getUserId()})}">
+                        <div>
+                            <img th:src="@{/photos/users/{url}(url=${response.getUserPhoto()})}" alt="Фото профиля">
+                        </div>
+                        <div class="response_user">
+                            <p th:text="${response.getUserName()}"></p>
+                            <p th:text="${response.getResponseDate()}"></p>
+                        </div>
+                    </a>
+                    <form th:method="POST" th:if="${isAuthor}" class="choose_freelancer_button"  th:action="@{/orders/choose-{orderId}-freelancer-{userId}(orderId=${order.getId()}, userId=${response.getUserId()})}">
+                        <input type="submit" value="Выбрать">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="responses_container" th:if="${order.getStatus() == 3 || order.getStatus() == 4}">
+            <h3>Исполнитель</h3>
+            <div class="responses_block">
+                <div class="response">
+                    <a class="order_response" th:href="@{/users/user-{id}(id=${freelancer.getId()})}">
+                        <div>
+                            <img th:src="@{/photos/users/{url}(url=${freelancer.getProfilePicture()})}" alt="Фото профиля">
+                        </div>
+                        <div class="response_user">
+                            <p th:text="${freelancer.getFirstName() + ' ' + freelancer.getSecondName()}"></p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <ul>
+            <li>© Cent, 2022</li>
+            <li><a href="#">О проекте</a></li>
+            <li><a href="#">Правила</a></li>
+            <li><a href="#">Безопасность</a></li>
+            <li><a href="#">Помощь</a></li>
+        </ul>
+    </footer>
+</body>
+</html>

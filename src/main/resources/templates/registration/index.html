@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" type="text/css" href="../../static/style/style.css" th:href="@{/style/style.css}">
+</head>
+<body>
+    <header>
+        <div class="main_logo">
+            <div class="main_logo_container">
+                <a href="../"><img src="../../static/photos/main_logo.png" th:src="@{/photos/main_logo.png}" alt="Логотип"></a>
+                <p>Работаем 24/7</p>
+            </div>
+        </div>
+        <div class="nav_bar">
+            <div class="nav_bar_container">
+                <nav>
+                    <ul>
+                        <li><a href="../orders" class="visited">Заказы</a></li>
+                        <li><a href="../freelancers">Специалисты</a></li>
+                        <li><a href="../services">Услуги</a></li>
+                        <li><a href="../help">Помощь</a></li>
+                    </ul>
+                </nav>
+                <div class="auth" sec:authorize="isAnonymous()">
+                    <ul>
+                        <li><a href="../login">Вход</a></li>
+                        <li><a href="../registration" class="visited">Регистрация</a></li>
+                    </ul>
+                </div>
+                <div class="nav_user" sec:authorize="isAuthenticated()">
+                    Пользователь 10
+                    <ul>
+                        <li><a href="../login" class="nav_user_el">Профиль</a></li>
+                        <li><a href="../login" class="nav_user_el">Сообщения</a></li>
+                        <li><a href="../login" class="nav_user_el">Заказы</a></li>
+                        <li><a href="../login" class="nav_user_el">Пополнить счёт</a></li>
+                        <form th:action="@{/logout}" method="post" class="nav_user_el">
+                            <input type="submit" value="Выход" class="sign_out_button"/>
+                        </form>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="offer_login">
+            <p>Уже зарегистрированы? <a href="../login">Войти</a></p>
+        </div>
+        <div class="register_block">
+            <h1>Cent</h1>
+            <p>Регистрация</p>
+            <form th:method="POST" th:action="@{/registration}" th:object="${user}">
+                <div>
+                    <label for="email">Email</label>
+                    <input id="email" type="email" th:field="*{email}" required>
+                    <div th:if="${emailError}" class="error">
+                        Данный Email уже используется.
+                    </div>
+                </div>
+                <div>
+                    <label for="pwd">Пароль</label>
+                    <input id="pwd" type="password" th:field="*{password}" required>
+                </div>
+                <div>
+                    <label for="pwd_rpt">Повторите пароль</label>
+                    <input id="pwd_rpt" type="password" th:field="*{repeatPassword}" required>
+                    <div th:if="${passwordError}" class="error">
+                        Пароли не совпадают.
+                    </div>
+                </div>
+                <div>
+                    <label for="emp">Роль</label>
+                    <div class="register_role">
+                        <label><input id="emp" name="role" type="radio" th:field="*{access}" value="2" required><span>Заказчик</span></label>
+                        <label><input name="role" type="radio" th:field="*{access}" value="3"><span>Фрилансер</span></label>
+                    </div>
+                </div>
+                <div>
+                    <label for="agreements"><input id="agreements" type="checkbox" required> Вы принимаете условия Пользовательского соглашения</label>
+                </div>
+                <div class="register_submit_button">
+                    <input type="submit" value="Зарегистрироваться">
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <ul>
+            <li>© Cent, 2022</li>
+            <li><a href="#">О проекте</a></li>
+            <li><a href="#">Правила</a></li>
+            <li><a href="#">Безопасность</a></li>
+            <li><a href="#">Помощь</a></li>
+        </ul>
+    </footer>
+</body>
+</html>

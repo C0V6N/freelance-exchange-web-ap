@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <link rel="stylesheet" type="text/css" href="../../static/style/style.css" th:href="@{/style/style.css}">
+</head>
+<body>
+    <header>
+        <div class="main_logo">
+            <div class="main_logo_container">
+                <a href="../"><img src="../../static/photos/main_logo.png" th:src="@{/photos/main_logo.png}" alt="Логотип"></a>
+                <p>Работаем 24/7</p>
+            </div>
+        </div>
+        <div class="nav_bar">
+            <div class="nav_bar_container">
+                <nav>
+                    <ul>
+                        <li><a href="../orders">Заказы</a></li>
+                        <li><a href="../freelancers">Специалисты</a></li>
+                        <li><a href="../services">Услуги</a></li>
+                        <li><a href="../help">Помощь</a></li>
+                    </ul>
+                </nav>
+                <div class="auth" sec:authorize="isAnonymous()">
+                    <ul>
+                        <li><a href="../login" class="visited">Вход</a></li>
+                        <li><a href="../registration">Регистрация</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="offer_login">
+            <p>Новый пользователь? <a href="../registration">Зарегистрироваться</a></p>
+        </div>
+        <div class="register_block login">
+            <h1>Cent</h1>
+            <p>Авторизация</p>
+            <form th:action="@{/login}" method="POST">
+                <div>
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="username" required>
+                </div>
+                <div>
+                    <label for="pwd">Пароль</label>
+                    <input id="pwd" type="password" name="password" required>
+                </div>
+                <div th:if="${param.error}" class="error">
+                    Неверно указана почта или пароль.
+                </div>
+                <div class="register_submit_button">
+                    <input type="submit" value="Войти">
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <ul>
+            <li>© Cent, 2022</li>
+            <li><a href="#">О проекте</a></li>
+            <li><a href="#">Правила</a></li>
+            <li><a href="#">Безопасность</a></li>
+            <li><a href="#">Помощь</a></li>
+        </ul>
+    </footer>
+</body>
+</html>
